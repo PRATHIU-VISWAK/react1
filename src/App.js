@@ -1,12 +1,16 @@
 import "./App.css";
-import { planets } from "./Planets";
+import { useState } from "react";
 
 function App() {
+  const [inputval , changeval] = useState("")
+const handleInput=(event)=>{
+  changeval( event.target.value)
+}
+
   return (
     <div className="App">
-      {planets.map(
-        (planet, key) => !planet.isGasPlanet && <h1> {planet.name} </h1>
-      )}
+     <input type="text" onChange={handleInput}/>
+     {inputval}
     </div>
   );
 }
