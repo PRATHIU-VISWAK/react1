@@ -1,16 +1,18 @@
 import "./App.css";
-import { useState } from "react";
+import { useState , useEffect } from "react";
+//import axios from ("axios");
 
 function App() {
-  const [inputval , changeval] = useState("")
-const handleInput=(event)=>{
-  changeval( event.target.value)
-}
+  const [data , setData] = useState(null)
+
+  fetch("https://excuser-three.vercel.app/v1/excuse/")
+  .then((res) => res.json())
+  .then((data) => {setData(data[1])
+  console.log(data.category)})
 
   return (
     <div className="App">
-     <input type="text" onChange={handleInput}/>
-     {inputval}
+      <h1>{data}</h1>
     </div>
   );
 }
