@@ -1,25 +1,30 @@
 import "./App.css";
-import { useState , useEffect } from "react";
-import Axios from "axios";
+import { useState , createContext} from "react";
+import { BrowserRouter as Router , Route , Routes } from "react-router-dom";
+import { Home } from "./pages/Home";
+import { Contacts } from "./pages/Contact";
+import { Items } from "./pages/Items";
+import { Profile } from "./pages/Profile";
+import { NAVBAR } from "./components/NAVBAR";
 
+export const AppContext = createContext()
 function App() {
-  const [data , setData] = useState("")
-
-
-  // fetch("https://excuser-three.vercel.app/v1/excuse/")
-  // .then((res) => res.json())
-  // .then((datas) => setData(datas[0].category)) 
-const fact = () => {
-    Axios.get("https://catfact.ninja/fact").then((res) => {
-    setData(res.data.fact)})
-}
-useEffect(()=>{fact()},[]);
-
+  
+  const [usernames , setUsername] = useState("Viswak")
   return (
+    <AppContext.Provider value = {{usernames , setUsername}}>
     <div className="App">
-      <button onClick={fact}>display fact</button>
-      <h1>{data}</h1>
+      <Router>
+        <div><NAVBAR /></div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Contact" element={<Contacts/>} />
+          <Route path="/Items" element={<Items/>} />
+          <Route path="/Profile" element={<Profile />} />
+        </Routes>
+      </Router>
     </div>
+    </AppContext.Provider>
   );
 }
 
